@@ -4,399 +4,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abubakr Rabbimov - Full Vocabulary Exam</title>
+<title>Abubakr Rabbimov — Vocabulary Exam</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef3f8;color:#172033}
-.container{max-width:900px;width:94%;margin:25px auto}
-.card{background:#fff;padding:28px;border-radius:22px;box-shadow:0 10px 30px #0002;margin-bottom:20px}
-.hidden{display:none!important}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3f8;color:#172033;transition:.2s}
+body.dark{background:#111827;color:#f3f4f6}
+.container{max-width:850px;width:94%;margin:24px auto}
+.card{background:white;padding:26px;border-radius:20px;box-shadow:0 8px 28px #0002;margin-bottom:18px}
+.dark .card{background:#1f2937}
 .center{text-align:center}
-.brand{text-align:center;font-size:19px;font-weight:bold;color:#2563eb;margin-bottom:18px}
-input,textarea{width:100%;padding:14px;border:2px solid #ddd;border-radius:12px;font-size:16px;margin:6px 0 12px}
-textarea{min-height:90px;resize:vertical}
-button{border:0;border-radius:12px;padding:14px 20px;margin:5px;font-weight:bold;cursor:pointer;font-size:15px}
+.brand{text-align:center;color:#2563eb;font-size:19px;font-weight:bold;margin-bottom:18px}
+input{width:100%;padding:14px;border:2px solid #d1d5db;border-radius:12px;font-size:17px;margin:8px 0;background:inherit;color:inherit}
+button{border:0;border-radius:11px;padding:13px 18px;margin:5px;font-size:15px;font-weight:bold;cursor:pointer}
 .primary{background:#2563eb;color:white}
 .secondary{background:#e5e7eb;color:#111827}
-button:disabled{opacity:.5;cursor:not-allowed}
-.question{font-size:24px;font-weight:bold;line-height:1.5;margin:22px 0}
-.status{padding:13px;border-radius:12px;background:#eef4ff;margin:15px 0}
-.feedback{margin-top:20px;padding:20px;border-radius:16px;background:#f7f9fc;line-height:1.7;overflow-wrap:anywhere}
-.timer{font-size:30px;font-weight:bold;text-align:center;margin:12px}
-.progressbar{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden;margin:12px 0}
-.progressfill{height:100%;width:0;background:#2563eb;transition:width .2s}
-.small{font-size:13px;color:#64748b}
-.error{color:#dc2626;font-weight:bold}
-.score{font-size:46px;font-weight:bold;color:#2563eb}
-.wordcard{padding:12px;border-bottom:1px solid #e5e7eb}
-body.dark{background:#111827;color:#f3f4f6}
-body.dark .card{background:#1f2937}
-body.dark input,body.dark textarea{background:#111827;color:white;border-color:#4b5563}
-body.dark .secondary{background:#374151;color:white}
-body.dark .feedback{background:#111827}
-body.dark .status{background:#172554}
-body.dark .progressbar{background:#374151}
-body.dark .wordcard{border-color:#374151}
-@media(max-width:600px){
-.container{width:96%;margin:12px auto}
-.card{padding:20px}
-.question{font-size:21px}
-button{width:100%;margin:6px 0}
-.timer{font-size:26px}
-}
+.hidden{display:none!important}
+.question{font-size:25px;font-weight:bold;margin:24px 0;line-height:1.5}
+.translation{font-size:20px;color:#2563eb;line-height:1.6}
+.meta{color:#6b7280;font-size:14px}
+.timer{font-size:28px;font-weight:bold;text-align:center;margin:12px}
+.progress{height:9px;background:#e5e7eb;border-radius:9px;overflow:hidden}
+#progressBar{height:100%;width:0;background:#2563eb;transition:width .2s}
+.notice,.feedback{padding:16px;border-radius:12px;background:#f3f6fb;margin:15px 0;line-height:1.7}
+.dark .notice,.dark .feedback{background:#374151}
+.correct{color:#16a34a;font-weight:bold}
+.wrong{color:#dc2626;font-weight:bold}
+.score{font-size:48px;font-weight:bold;color:#2563eb}
+.review-item{border-bottom:1px solid #ddd;padding:12px 0;line-height:1.7}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+@media(max-width:600px){.container{width:96%;margin:12px auto}.card{padding:18px}.question{font-size:22px}button{width:100%;margin:5px 0}}
 </style>
 </head>
 <body>
 <div class="container">
 
-<div id="welcomeCard" class="card center">
+<div id="loginCard" class="card center">
 <div class="brand">👤 Abubakr Rabbimov</div>
-<h1>📚 Full Vocabulary Exam</h1>
-<p>LESSONS 21–30</p>
+<h1>📚 Vocabulary Exam</h1>
+<p>Ismingni kirit va imtihonni boshlashga tayyorlan.</p>
+<input id="studentName" placeholder="Ismingiz" maxlength="60">
+<button class="primary" onclick="continueToExam()">DAVOM ETISH</button>
+<button class="secondary" onclick="toggleTheme()">🌙 / ☀️ Rejim</button>
+<p id="loginError" class="wrong"></p>
+</div>
+
+<div id="beginCard" class="card center hidden">
+<div class="brand">👤 Abubakr Rabbimov</div>
+<h1>🚀 FULL VOCAB EXAM</h1>
+<p id="welcome"></p>
 <p>📝 20 ta tasodifiy savol</p>
 <p>⏱️ 30 daqiqa</p>
-<label for="studentName"><b>Ismingizni kiriting</b></label>
-<input id="studentName" placeholder="Enter your name" autocomplete="name">
-<button id="beginButton" class="primary" onclick="beginExam()" disabled>
-🚀 START FULL VOCAB EXAM
-</button>
-<p class="small">Barcha 10 ta lesson bo‘yicha imtihon.</p>
+<p>🏆 Maksimal natija: 40 ball</p>
+<p>Tarjima formati: <b>O‘zbekcha (Русский)</b></p>
+<button class="primary" onclick="beginExam()">🚀 START FULL VOCAB EXAM</button>
+<button class="secondary" onclick="toggleTheme()">🌙 / ☀️ Rejim</button>
 </div>
 
 <div id="examCard" class="card hidden">
-<div class="brand">👤 Abubakr Rabbimov</div>
-<div class="center">
-<h2>📚 FULL VOCAB EXAM</h2>
-<p id="studentLabel"></p>
-<p id="progress"></p>
-<div class="timer" id="timer">30:00</div>
-<div class="progressbar"><div id="progressFill" class="progressfill"></div></div>
+<div class="topbar">
+<div class="brand">📚 VOCABULARY EXAM</div>
+<button class="secondary" onclick="toggleTheme()">🌙 / ☀️</button>
 </div>
-<div class="status" id="status">Imtihon boshlandi!</div>
-<p><b>O‘zbekcha ma’nosi:</b></p>
-<div id="question" class="question"></div>
-<p class="small" id="questionInfo"></p>
-<label for="wordAnswer"><b>1. Inglizcha so‘z yoki iborani yozing</b></label>
-<input id="wordAnswer" placeholder="Write the English word or phrase">
-<label for="sentenceAnswer"><b>2. Shu so‘z yoki ibora bilan inglizcha gap tuzing</b></label>
-<textarea id="sentenceAnswer" placeholder="Write your own English sentence..."></textarea>
-<button class="primary" id="nextButton" onclick="nextQuestion()">➡️ NEXT QUESTION</button>
-<button class="secondary" onclick="finishExam(false)">🏁 FINISH EXAM</button>
-<p class="small">Har bir savol: 1 ball — so‘z, 1 ball — gap.</p>
+<div class="center">
+<p id="studentLabel"></p>
+<p id="progressText">Question 1 / 20</p>
+<div class="progress"><div id="progressBar"></div></div>
+<div class="timer" id="timer">30:00</div>
+</div>
+<div class="notice">
+<b>Vazifa:</b> quyidagi o‘zbekcha va ruscha tarjimaga mos inglizcha so‘zni yoz.
+</div>
+<div class="question" id="question"></div>
+<div class="translation" id="translation"></div>
+<p class="meta" id="lesson"></p>
+<input id="answer" autocomplete="off" placeholder="Inglizcha so‘zni yoz..." onkeydown="if(event.key==='Enter')submitAnswer()">
+<button class="primary" id="submitButton" onclick="submitAnswer()">JAVOBNI TEKSHIRISH</button>
+<button class="secondary" id="skipButton" onclick="skipQuestion()">O‘TKAZIB YUBORISH</button>
+<div id="message" class="feedback hidden"></div>
 </div>
 
 <div id="resultCard" class="card hidden">
 <div class="brand">👤 Abubakr Rabbimov</div>
+<h1 class="center">🏆 IMTIHON NATIJASI</h1>
+<p class="center" id="resultName"></p>
 <div class="center">
-<h1>🏆 EXAM RESULTS</h1>
-<p id="resultName"></p>
-<div id="resultScore" class="score">0 / 40</div>
-<h2 id="resultPercent">0%</h2>
-<p id="resultGrade"></p>
+<div class="score" id="score">0 / 40</div>
+<h2 id="percentage">0%</h2>
+<p id="resultSummary"></p>
 </div>
-<div class="feedback" id="resultDetails"></div>
-<button class="primary" onclick="startNewExam()">🔄 START NEW EXAM</button>
-<button class="secondary" onclick="reviewWords()">📖 REVIEW ANSWERS</button>
-</div>
-
-<div id="reviewCard" class="card hidden">
-<div class="brand">📖 ANSWER REVIEW</div>
-<div id="reviewList"></div>
-<button class="primary" onclick="startNewExam()">🔄 NEW EXAM</button>
-</div>
-
-<div class="center">
-<button class="secondary" onclick="toggleTheme()">🌙 / ☀️ Dark / Light Mode</button>
-<p class="small">Vocabulary practice · Lessons 21–30</p>
-<p><a href="https://t.me/Ieltsfoundationexambot" target="_blank" rel="noopener">📢 @Ieltsfoundationexambot</a></p>
+<div id="review"></div>
+<button class="primary" onclick="newExam()">🔄 YANGI IMTIHON</button>
+<button class="secondary" onclick="toggleTheme()">🌙 / ☀️ Rejim</button>
 </div>
 </div>
 
 <script>
-/* Har bir element: [English, Uzbek, Russian, Lesson] */
 const vocabulary = [
-["Experience","tajriba, boshdan kechirmoq","Опыт, испытывать",21],
-["Tradition","an’ana","Традиция",21],
-["Hospitality","mehmondo‘stlik","Гостеприимство",21],
-["Influence","ta’sir ko‘rsatmoq","Влиять",21],
-["Fusion","aralashma, uyg‘unlik","Слияние, сочетание",21],
-["Open-minded","ochiq fikrli","С широкими взглядами",21],
-["Respect","hurmat qilmoq","Уважать",21],
-["Cuisine","oshpazlik, taomlar","Кухня",21],
-["Culture","madaniyat","Культура",21],
-["Discover","kashf qilmoq, bilib olmoq","Открывать, узнавать",21],
-["Cappuccino","kapuchino","Капучино",21],
-["Oat milk","suli suti","Овсяное молоко",21],
-["Gluten-free","glutensiz","Без глютена",21],
-["Pastries","pishiriqlar","Выпечка",21],
-["Almond","bodom","Миндаль",21],
-["Croissant","kruassan","Круассан",21],
-["Muffin","keks","Маффин",21],
-["Mobile payment","mobil to‘lov","Мобильный платёж",21],
-["To go","olib ketish uchun","С собой",21],
-["Smells amazing","ajoyib hid kelmoqda","Пахнет потрясающе",21],
-["depend on","ga bog‘liq bo‘lmoq","Зависеть от",21],
-["inform sb about","kimgadir ... haqida xabar bermoq","Сообщить кому-либо о",21],
-["refer to","ga ishora qilmoq; tilga olmoq","Ссылаться на, упоминать",21],
-["work as","sifatida ishlamoq","Работать кем-либо",21],
-["work for","uchun ishlamoq","Работать на кого-либо",21],
+["Experience","tajriba, boshdan kechirmoq","опыт, испытывать",21],
+["Tradition","an’ana","традиция",21],
+["Hospitality","mehmondo‘stlik","гостеприимство",21],
+["Influence","ta’sir ko‘rsatmoq","влиять, влияние",21],
+["Fusion","aralashma, uyg‘unlik","сочетание, слияние",21],
+["Open-minded","ochiq fikrli","с широкими взглядами",21],
+["Respect","hurmat qilmoq","уважать, уважение",21],
+["Cuisine","oshpazlik, taomlar","кухня, блюда",21],
+["Culture","madaniyat","культура",21],
+["Discover","kashf qilmoq, bilib olmoq","открывать, обнаруживать",21],
+["Cappuccino","kapuchino","капучино",21],
+["Oat milk","suli suti","овсяное молоко",21],
+["Gluten-free","glutensiz","без глютена",21],
+["Pastries","pishiriqlar","выпечка",21],
+["Almond","bodom","миндаль",21],
+["Croissant","kruassan","круассан",21],
+["Muffin","keks","маффин, кекс",21],
+["Mobile payment","mobil to‘lov","мобильный платёж",21],
+["To go","olib ketish uchun","с собой",21],
+["Smells amazing","ajoyib hid kelmoqda","потрясающе пахнет",21],
+["depend on","ga bog‘liq bo‘lmoq","зависеть от",21],
+["inform sb about","kimgadir ... haqida xabar bermoq","сообщить кому-либо о",21],
+["refer to","ga ishora qilmoq, tilga olmoq","ссылаться на, упоминать",21],
+["work as","sifatida ishlamoq","работать кем-либо",21],
+["work for","uchun ishlamoq","работать на кого-либо",21],
 
-["Poaching","noqonuniy ovchilik","Браконьерство",22],
-["Endangered","yo‘qolib ketish xavfida","Находящийся под угрозой исчезновения",22],
-["Survival","omon qolish","Выживание",22],
-["Illegal","noqonuniy","Незаконный",22],
-["Species","tur","Вид",22],
-["Ecosystem","ekotizim","Экосистема",22],
-["Awareness","xabardorlik","Осведомлённость",22],
-["Horn","shox","Рог",22],
-["Balanced","muvozanatli","Сбалансированный",22],
-["Behavior","xulq-atvor","Поведение",22],
-["Seasonal","mavsumiy","Сезонный",22],
-["Special","maxsus taklif","Специальный",22],
-["Featuring","taqdim etayotgan","Представляющий",22],
-["Tempting","vasvasaga soluvchi","Соблазнительный",22],
-["Spiced","ziravorli","Приправленный специями",22],
-["Chilly","salqin","Прохладный",22],
-["Selection","tanlov","Выбор",22],
-["Cinnamon roll","dolchinli bulochka","Булочка с корицей",22],
-["Counter","kassaga yaqin joy","Стойка",22],
-["Looking forward to","sabrsizlik bilan kutmoq","С нетерпением ждать",22],
-["a kind of","bir turi","Вид чего-либо",22],
-["addicted to","ga qaram bo‘lmoq","Зависимый от",22],
-["allergic to","ga allergiyasi bor","Имеющий аллергию на",22],
-["covered in/with","bilan qoplangan","Покрытый чем-либо",22],
-["pleased with","dan mamnun","Довольный чем-либо",22],
+["Poaching","noqonuniy ovchilik","браконьерство",22],
+["Endangered","yo‘qolib ketish xavfida","находящийся под угрозой исчезновения",22],
+["Survival","omon qolish","выживание",22],
+["Illegal","noqonuniy","незаконный",22],
+["Species","tur","вид",22],
+["Ecosystem","ekotizim","экосистема",22],
+["Awareness","xabardorlik","осведомлённость",22],
+["Horn","shox","рог",22],
+["Balanced","muvozanatli","сбалансированный",22],
+["Behavior","xulq-atvor","поведение",22],
+["Seasonal","mavsumiy","сезонный",22],
+["Special","maxsus taklif","специальный, особый",22],
+["Featuring","taqdim etayotgan","представляющий, включающий",22],
+["Tempting","vasvasaga soluvchi","соблазнительный",22],
+["Spiced","ziravorli","приправленный специями",22],
+["Chilly","salqin","прохладный",22],
+["Selection","tanlov","выбор, ассортимент",22],
+["Cinnamon roll","dolchinli bulochka","булочка с корицей",22],
+["Counter","kassaga yaqin joy","стойка, прилавок",22],
+["Looking forward to","sabrsizlik bilan kutmoq","с нетерпением ждать",22],
+["a kind of","bir turi","разновидность, вид",22],
+["addicted to","ga qaram bo‘lmoq","зависимый от",22],
+["allergic to","ga allergiyasi bor","имеющий аллергию на",22],
+["covered in/with","bilan qoplangan","покрытый чем-либо",22],
+["pleased with","dan mamnun","довольный чем-либо",22],
 
-["Generation gap","avlodlar o‘rtasidagi farq","Разрыв между поколениями",23],
-["Misunderstanding","tushunmovchilik","Недопонимание",23],
-["Tradition","an’ana","Традиция",23],
-["Value","qadriyat","Ценность",23],
-["Technology","texnologiya","Технология",23],
-["Connect","bog‘lanmoq","Связывать",23],
-["Support","qo‘llab-quvvatlamoq","Поддерживать",23],
-["Patient","sabrli","Терпеливый",23],
-["Express","ifodalamoq","Выражать",23],
-["Relationship","munosabat","Отношения",23],
-["Assignment","topshiriq","Задание",23],
-["Summarize","qisqacha bayon qilmoq","Кратко излагать",23],
-["Chapter","bob","Глава",23],
-["Timeline","vaqt jadvali","Хронология",23],
-["Argument","dalil","Аргумент",23],
-["Researching","tadqiqot qilmoq","Проводить исследование",23],
-["Recommended","tavsiya etilgan","Рекомендованный",23],
-["Expectations","kutgan natijalar","Ожидания",23],
-["Particular","talabchan, aniq","Конкретный, особый",23],
-["Honest effort","halol harakat","Честное усилие",23],
-["combine sth with","biror narsani ... bilan birlashtirmoq","Сочетать что-либо с",23],
-["complain (to sb) about","kimgadir ... haqida shikoyat qilmoq","Жаловаться кому-либо на",23],
-["die from/of","...dan vafot etmoq","Умереть от",23],
-["fight against","ga qarshi kurashmoq","Бороться против",23],
-["recover from","dan tuzalmoq","Восстанавливаться после",23],
+["Generation gap","avlodlar o‘rtasidagi farq","разрыв между поколениями",23],
+["Misunderstanding","tushunmovchilik","недопонимание",23],
+["Value","qadriyat","ценность",23],
+["Technology","texnologiya","технология",23],
+["Connect","bog‘lanmoq","соединять, связываться",23],
+["Support","qo‘llab-quvvatlamoq","поддерживать",23],
+["Patient","sabrli","терпеливый",23],
+["Express","ifodalamoq","выражать",23],
+["Relationship","munosabat","отношения",23],
+["Assignment","topshiriq","задание",23],
+["Summarize","qisqacha bayon qilmoq","кратко излагать",23],
+["Chapter","bob","глава",23],
+["Timeline","vaqt jadvali","временная шкала",23],
+["Argument","dalil","аргумент, довод",23],
+["Researching","tadqiqot qilmoq","проведение исследования",23],
+["Recommended","tavsiya etilgan","рекомендованный",23],
+["Expectations","kutgan natijalar","ожидания",23],
+["Particular","aniq, muayyan","конкретный, определённый",23],
+["Honest effort","halol harakat","честное усилие",23],
+["combine sth with","biror narsani ... bilan birlashtirmoq","сочетать что-либо с",23],
+["complain (to sb) about","kimgadir ... haqida shikoyat qilmoq","жаловаться кому-либо на",23],
+["die from/of","...dan vafot etmoq","умереть от",23],
+["fight against","ga qarshi kurashmoq","бороться против",23],
+["recover from","dan tuzalmoq","восстанавливаться после",23],
 
-["Experience","tajriba","Опыт",24],
-["Volunteer","ko‘ngilli","Волонтёр",24],
-["Culture","madaniyat","Культура",24],
-["Prepare","tayyorlamoq","Готовить",24],
-["Rush","shoshilmoq","Торопиться",24],
-["Regret","afsuslanmoq","Сожалеть",24],
-["Support","qo‘llab-quvvatlamoq","Поддерживать",24],
-["Educational path","ta’lim yo‘li","Образовательный путь",24],
-["Plan","reja","План",24],
-["Decision","qaror","Решение",24],
-["Thesis","diplom ishi","Дипломная работа",24],
-["Outline","reja, tuzilma","План, структура",24],
-["Sustainable","barqaror","Устойчивый",24],
-["Architecture","arxitektura","Архитектура",24],
-["Narrowing the scope","mavzuni toraytirish","Сужение темы",24],
-["Analysis","tahlil","Анализ",24],
-["Case study","amaliy misol, tadqiqot","Практический пример, исследование",24],
-["Credible","ishonchli","Достоверный",24],
-["Cited","keltirilgan, manba sifatida","Цитируемый",24],
-["Draft","qora nusxa","Черновик",24],
-["smell of","... hidi","Запах чего-либо",24],
-["a cure for","... uchun davo","Лекарство от",24],
-["a recipe for","... uchun retsept","Рецепт чего-либо",24],
-["amazed at/by","...dan hayratlangan","Удивлённый чем-либо",24],
-["disappointed with","dan hafsalasi pir bo‘lgan","Разочарованный чем-либо",24],
+["Volunteer","ko‘ngilli","волонтёр, доброволец",24],
+["Prepare","tayyorlamoq","готовить, подготавливать",24],
+["Rush","shoshilmoq","спешить",24],
+["Regret","afsuslanmoq","сожалеть",24],
+["Educational path","ta’lim yo‘li","образовательный путь",24],
+["Plan","reja","план",24],
+["Decision","qaror","решение",24],
+["Thesis","diplom ishi","дипломная работа, тезис",24],
+["Outline","reja, tuzilma","план, структура",24],
+["Sustainable","barqaror","устойчивый",24],
+["Architecture","arxitektura","архитектура",24],
+["Narrowing the scope","mavzuni toraytirish","сужение темы исследования",24],
+["Analysis","tahlil","анализ",24],
+["Case study","amaliy misol, tadqiqot","тематическое исследование",24],
+["Credible","ishonchli","достоверный, заслуживающий доверия",24],
+["Cited","keltirilgan, manba sifatida","процитированный, указанный как источник",24],
+["Draft","qora nusxa","черновик",24],
+["smell of","... hidi","пахнуть чем-либо",24],
+["a cure for","... uchun davo","лекарство от",24],
+["a recipe for","... uchun retsept","рецепт чего-либо",24],
+["amazed at/by","...dan hayratlangan","поражённый чем-либо",24],
+["disappointed with","...dan hafsalasi pir bo‘lgan","разочарованный чем-либо",24],
 
-["Opportunity","imkoniyat","Возможность",25],
-["Leadership","yetakchilik","Лидерство",25],
-["Promotion","lavozim ko‘tarilishi","Повышение в должности",25],
-["Frustration","hafsalasi pir bo‘lishi","Разочарование",25],
-["Equality","tenglik","Равенство",25],
-["Gender","jins","Пол",25],
-["Disappear","yo‘qolmoq","Исчезать",25],
-["Progress","taraqqiyot","Прогресс",25],
-["Include","qo‘shmoq","Включать",25],
-["Respect","hurmat","Уважение",25],
-["Projections","bashoratlar","Прогнозы",25],
-["Initiative","tashabbus","Инициатива",25],
-["Rehearse","mashq qilmoq","Репетировать",25],
-["Talking points","asosiy fikrlar","Ключевые тезисы",25],
-["Visualization","tasvirlash","Визуализация",25],
-["Concise","lo‘nda, aniq","Краткий, точный",25],
-["Run-through","sinovchi mashq","Пробный прогон",25],
-["Cottage","qishloq uyi","Загородный дом",25],
-["Deckchairs","dam olish uchun buklanadigan stullar","Шезлонги",25],
-["Presume","dalilsiz taxmin qilmoq","Предполагать",25],
-["familiar with","bilan tanish","Знакомый с",25],
-["involved in","da ishtirok etmoq","Участвующий в",25],
-["similar to","ga o‘xshash","Похожий на",25],
-["change sth from sth into","...dan ...ga aylantirmoq","Превратить что-либо из ... в ...",25],
-["describe sth as","... deb ta’riflamoq","Описывать что-либо как",25],
+["Opportunity","imkoniyat","возможность",25],
+["Leadership","yetakchilik","лидерство",25],
+["Promotion","lavozim ko‘tarilishi","повышение в должности",25],
+["Frustration","hafsalasi pir bo‘lishi","разочарование",25],
+["Equality","tenglik","равенство",25],
+["Gender","jins","пол, гендер",25],
+["Disappear","yo‘qolmoq","исчезать",25],
+["Progress","taraqqiyot","прогресс",25],
+["Include","qo‘shmoq","включать",25],
+["Projections","bashoratlar","прогнозы",25],
+["Initiative","tashabbus","инициатива",25],
+["Rehearse","mashq qilmoq","репетировать",25],
+["Talking points","asosiy fikrlar","ключевые тезисы",25],
+["Visualization","tasvirlash","визуализация",25],
+["Concise","lo‘nda, aniq","краткий, лаконичный",25],
+["Run-through","sinovchi mashq","пробный прогон, репетиция",25],
+["Cottage","qishloq uyi","коттедж, загородный дом",25],
+["Deckchairs","dam olish uchun buklanadigan stullar","шезлонги",25],
+["Presume","dalilsiz taxmin qilmoq","предполагать",25],
+["familiar with","bilan tanish","знакомый с",25],
+["involved in","da ishtirok etmoq","участвующий в",25],
+["similar to","ga o‘xshash","похожий на",25],
+["change sth from sth into","...dan ...ga aylantirmoq","превращать что-либо из ... в ...",25],
+["describe sth as","... deb ta’riflamoq","описывать что-либо как",25],
 
-["Valuable","qimmatli","Ценный",26],
-["Understood","tushunilgan","Понятый",26],
-["Judgment","hukm, tanqid","Суждение",26],
-["Reflect","o‘ylab ko‘rmoq","Размышлять",26],
-["Criticize","tanqid qilmoq","Критиковать",26],
-["Effort","harakat, urinish","Усилие",26],
-["Uncomfortable","noqulay","Неудобный",26],
-["Honest","halol, rostgo‘y","Честный",26],
-["Supportive","qo‘llab-quvvatlovchi","Поддерживающий",26],
-["Bond","rishta, aloqa","Связь",26],
-["Revised","qayta ko‘rib chiqilgan","Пересмотренный",26],
-["Agenda","kun tartibi","Повестка дня",26],
-["Strategy meeting","strategik yig‘ilish","Стратегическое совещание",26],
-["Segment","bo‘lim, qism","Сегмент, часть",26],
-["Digital transformation","raqamli o‘zgarish","Цифровая трансформация",26],
-["Implementation plan","amalga oshirish rejasi","План реализации",26],
-["Compiled","to‘plangan","Составленный",26],
-["Visual report","grafik hisobot","Визуальный отчёт",26],
-["Collaborate","hamkorlik qilmoq","Сотрудничать",26],
-["Input","fikr, hissa","Вклад, мнение",26],
-["explain sth to","biror narsani kimgadir tushuntirmoq","Объяснить что-либо кому-либо",26],
-["remind sb of","kimgadir ...ni eslatmoq","Напоминать кому-либо о",26],
-["remove sth from","biror narsani ...dan olib tashlamoq","Удалить что-либо из",26],
-["an influence on","...ga ta’sir","Влияние на",26],
-["a picture of","...ning rasmi","Изображение чего-либо",26],
+["Valuable","qimmatli","ценный",26],
+["Understood","tushunilgan","понятый",26],
+["Judgment","hukm, tanqid","суждение, оценка",26],
+["Reflect","o‘ylab ko‘rmoq","размышлять",26],
+["Criticize","tanqid qilmoq","критиковать",26],
+["Effort","harakat, urinish","усилие, попытка",26],
+["Uncomfortable","noqulay","неудобный, испытывающий дискомфорт",26],
+["Honest","halol, rostgo‘y","честный",26],
+["Supportive","qo‘llab-quvvatlovchi","поддерживающий",26],
+["Bond","rishta, aloqa","связь, узы",26],
+["Revised","qayta ko‘rib chiqilgan","пересмотренный",26],
+["Agenda","kun tartibi","повестка дня",26],
+["Strategy meeting","strategik yig‘ilish","стратегическое совещание",26],
+["Segment","bo‘lim, qism","сегмент, часть",26],
+["Digital transformation","raqamli o‘zgarish","цифровая трансформация",26],
+["Implementation plan","amalga oshirish rejasi","план реализации",26],
+["Compiled","to‘plangan","составленный, собранный",26],
+["Visual report","grafik hisobot","визуальный отчёт",26],
+["Collaborate","hamkorlik qilmoq","сотрудничать",26],
+["Input","fikr, hissa","вклад, мнение",26],
+["explain sth to","biror narsani kimgadir tushuntirmoq","объяснять что-либо кому-либо",26],
+["remind sb of","kimgadir ...ni eslatmoq","напоминать кому-либо о",26],
+["remove sth from","biror narsani ...dan olib tashlamoq","удалять что-либо из",26],
+["an influence on","...ga ta’sir","влияние на",26],
+["a picture of","...ning rasmi","изображение чего-либо",26],
 
-["Precision","aniqlik","Точность",27],
-["Misunderstood","noto‘g‘ri tushunilgan","Неправильно понятый",27],
-["Researcher","tadqiqotchi","Исследователь",27],
-["Conclusion","xulosa","Заключение",27],
-["Credibility","ishonchlilik","Достоверность",27],
-["Peer","hamkasb, retsenzent","Коллега, рецензент",27],
-["Findings","topilmalar, natijalar","Результаты",27],
-["Persuasively","ishontiruvchi tarzda","Убедительно",27],
-["Academic","ilmiy, akademik","Академический",27],
-["Emphasize","ta’kidlash","Подчёркивать",27],
-["Report","xabar bermoq, hisobot","Сообщать, отчёт",27],
-["Stolen","o‘g‘irlangan","Украденный",27],
-["Incident","hodisa","Инцидент",27],
-["Shattered","chilparchin bo‘lgan","Разбитый вдребезги",27],
-["Belongings","shaxsiy buyumlar","Личные вещи",27],
-["Detailed statement","batafsil bayonot","Подробное заявление",27],
-["File a report","ariza topshirmoq","Подать заявление",27],
-["Investigation","tergov","Расследование",27],
-["CCTV (surveillance)","kuzatuv kamerasi","Камера наблюдения",27],
-["Assist","yordam bermoq","Помогать",27],
-["afraid of","dan qo‘rqadigan","Боящийся",27],
-["aware of","dan xabardor","Осведомлённый о",27],
-["enthusiastic about","ga juda qiziqadigan, ishtiyoqmand","Увлечённый чем-либо",27],
-["serious about","ga jiddiy qaraydigan","Серьёзно относящийся к",27],
-["short of","yetishmaydigan","Испытывающий нехватку",27],
+["Precision","aniqlik","точность",27],
+["Misunderstood","noto‘g‘ri tushunilgan","неправильно понятый",27],
+["Researcher","tadqiqotchi","исследователь",27],
+["Conclusion","xulosa","заключение, вывод",27],
+["Credibility","ishonchlilik","достоверность",27],
+["Peer","hamkasb, retsenzent","коллега, рецензент",27],
+["Findings","topilmalar, natijalar","результаты исследования",27],
+["Persuasively","ishontiruvchi tarzda","убедительно",27],
+["Academic","ilmiy, akademik","академический, научный",27],
+["Emphasize","ta’kidlash","подчёркивать",27],
+["Report","xabar bermoq, hisobot","сообщать, докладывать",27],
+["Stolen","o‘g‘irlangan","украденный",27],
+["Incident","hodisa","происшествие",27],
+["Shattered","chilparchin bo‘lgan","разбитый вдребезги",27],
+["Belongings","shaxsiy buyumlar","личные вещи",27],
+["Detailed statement","batafsil bayonot","подробное заявление",27],
+["File a report","ariza topshirmoq","подать заявление",27],
+["Investigation","tergov","расследование",27],
+["CCTV (surveillance)","kuzatuv kamerasi","камера видеонаблюдения",27],
+["Assist","yordam bermoq","помогать",27],
+["afraid of","dan qo‘rqadigan","боящийся",27],
+["aware of","dan xabardor","осведомлённый о",27],
+["enthusiastic about","ga juda qiziqadigan, ishtiyoqmand","увлечённый чем-либо",27],
+["serious about","ga jiddiy qaraydigan","серьёзно относящийся к",27],
+["short of","yetishmaydigan","испытывающий нехватку",27],
 
-["Infrastructure","infratuzilma","Инфраструктура",28],
-["Heritage","meros","Наследие",28],
-["Sustainable","barqaror","Устойчивый",28],
-["Pollution","ifloslanish","Загрязнение",28],
-["Economic gain","iqtisodiy foyda","Экономическая выгода",28],
-["Tolerance","bag‘rikenglik","Толерантность",28],
-["Vulnerable","zaif, mo‘rt","Уязвимый",28],
-["Exchange","almashinuv","Обмен",28],
-["Pressure","bosim","Давление",28],
-["Cultural protection","madaniy merosni himoya qilish","Защита культуры",28],
-["Footage","video yozuv","Видеозапись",28],
-["Accusation","ayblov","Обвинение",28],
-["Admit","tan olmoq","Признавать",28],
-["Desperate","umidsiz, qattiq ehtiyojda","Отчаявшийся",28],
-["Motive","sabab, motiv","Мотив",28],
-["Offense","qonunbuzarlik","Правонарушение",28],
-["Acting alone","yakka harakat qilgan","Действовавший в одиночку",28],
-["Cooperation","hamkorlik","Сотрудничество",28],
-["Responsibility","mas’uliyat","Ответственность",28],
-["Court date","sud sanasi","Дата суда",28],
-["escape from","dan qochmoq","Сбежать от",28],
-["prevent sb from","kimnidir ...dan to‘smoq","Мешать кому-либо",28],
-["save sth from","biror narsani ...dan saqlamoq","Спасти что-либо от",28],
-["think about","haqida o‘ylamoq","Думать о",28],
-["worry about","haqida xavotir olmoq","Беспокоиться о",28],
+["Infrastructure","infratuzilma","инфраструктура",28],
+["Heritage","meros","наследие",28],
+["Pollution","ifloslanish","загрязнение",28],
+["Economic gain","iqtisodiy foyda","экономическая выгода",28],
+["Tolerance","bag‘rikenglik","терпимость, толерантность",28],
+["Vulnerable","zaif, mo‘rt","уязвимый",28],
+["Exchange","almashinuv","обмен",28],
+["Pressure","bosim","давление",28],
+["Cultural protection","madaniy merosni himoya qilish","защита культурного наследия",28],
+["Footage","video yozuv","видеозапись, видеоматериал",28],
+["Accusation","ayblov","обвинение",28],
+["Admit","tan olmoq","признавать",28],
+["Desperate","umidsiz, qattiq ehtiyojda","отчаявшийся, отчаянно нуждающийся",28],
+["Motive","sabab, motiv","мотив, причина",28],
+["Offense","qonunbuzarlik","правонарушение",28],
+["Acting alone","yakka harakat qilgan","действовавший в одиночку",28],
+["Cooperation","hamkorlik","сотрудничество",28],
+["Responsibility","mas’uliyat","ответственность",28],
+["Court date","sud sanasi","дата судебного заседания",28],
+["escape from","dan qochmoq","сбегать от",28],
+["prevent sb from","kimnidir ...dan to‘smoq","мешать кому-либо делать что-либо",28],
+["save sth from","biror narsani ...dan saqlamoq","спасать что-либо от",28],
+["think about","haqida o‘ylamoq","думать о",28],
+["worry about","haqida xavotir olmoq","беспокоиться о",28],
 
-["Equality","tenglik","Равенство",29],
-["Movement","harakat","Движение",29],
-["Opportunities","imkoniyatlar","Возможности",29],
-["Confidence","ishonch","Уверенность",29],
-["Respect","hurmat","Уважение",29],
-["Traditions","an’analar","Традиции",29],
-["Promote","rivojlantirmoq, ilgari surmoq","Продвигать",29],
-["Role model","namuna","Пример для подражания",29],
-["Potential","salohiyat","Потенциал",29],
-["Leader","rahbar","Лидер",29],
-["Locate","topmoq","Находить",29],
-["Escalator","eskalator","Эскалатор",29],
-["Promotion","chegirma, aksiya","Акция, скидка",29],
-["Directory","ko‘rsatkich, katalog","Справочник, каталог",29],
-["Upgrade","yangilash, yaxshilash","Обновлять, улучшать",29],
-["Exclusive","maxsus","Эксклюзивный",29],
-["Atrium","markaziy zal","Атриум",29],
-["Electronics","elektronika","Электроника",29],
-["Tech expo","texnologiya ko‘rgazmasi","Технологическая выставка",29],
-["Timing","vaqtni to‘g‘ri tanlash","Выбор времени",29],
-["damage to","...ga zarar","Ущерб чему-либо",29],
-["an increase in","...da o‘sish","Увеличение чего-либо",29],
-["ashamed of","...dan uyalgan","Стыдящийся чего-либо",29],
-["embarrassed about","...dan xijolat bo‘lgan","Смущённый чем-либо",29],
-["frightened of","...dan qo‘rqadigan","Испуганный чем-либо",29],
+["Movement","harakat","движение",29],
+["Opportunities","imkoniyatlar","возможности",29],
+["Confidence","ishonch","уверенность",29],
+["Traditions","an’analar","традиции",29],
+["Promote","rivojlantirmoq, ilgari surmoq","продвигать, способствовать",29],
+["Role model","namuna","пример для подражания",29],
+["Potential","salohiyat","потенциал",29],
+["Leader","rahbar","лидер, руководитель",29],
+["Locate","topmoq","находить, определять местоположение",29],
+["Escalator","eskalator","эскалатор",29],
+["Promotion (sale)","chegirma, aksiya","акция, распродажа",29],
+["Directory","ko‘rsatkich, katalog","справочник, каталог",29],
+["Upgrade","yangilash, yaxshilash","обновлять, улучшать",29],
+["Exclusive","maxsus","эксклюзивный",29],
+["Atrium","markaziy zal","атриум, центральный зал",29],
+["Electronics","elektronika","электроника",29],
+["Tech expo","texnologiya ko‘rgazmasi","выставка технологий",29],
+["Timing","vaqtni to‘g‘ri tanlash","выбор времени, хронометраж",29],
+["damage to","...ga zarar","ущерб чему-либо",29],
+["an increase in","...da o‘sish","увеличение чего-либо",29],
+["ashamed of","...dan uyalgan","стыдящийся чего-либо",29],
+["embarrassed about","...dan xijolat bo‘lgan","смущённый из-за чего-либо",29],
+["frightened of","...dan qo‘rqadigan","испуганный чем-либо",29],
 
-["Cultivated","yetishtirilgan","Выращенный",30],
-["Biotechnology","biotexnologiya","Биотехнология",30],
-["Occurring","yuzaga keladigan","Происходящий",30],
-["Purity","poklik","Чистота",30],
-["Thrive","rivojlanmoq, gullab-yashnamoq","Процветать",30],
-["Pruning","butash","Обрезка",30],
-["Grace","nafosat","Грация",30],
-["Apology","kechirim","Извинение",30],
-["Emotional well-being","ruhiy salomatlik","Эмоциональное благополучие",30],
-["Attention","e’tibor","Внимание",30],
-["Formal","rasmiy","Формальный",30],
-["Suitable","mos","Подходящий",30],
-["Wrinkle-resistant","burishmaydigan","Устойчивый к сминанию",30],
-["Recommend","tavsiya qilmoq","Рекомендовать",30],
-["Tailored","bichilgan, moslashtirilgan","Сшитый по мерке",30],
-["Breathable","nafas oladigan (mato)","Дышащий",30],
-["Crease","bukilmoq, burishmoq","Складка, мяться",30],
-["Durable","mustahkam","Прочный",30],
-["Dry-clean only","faqat kimyoviy tozalash","Только химчистка",30],
-["Fitting room","kiyim sinash xonasi","Примерочная",30],
-["happy about/with","...dan xursand, mamnun","Довольный чем-либо",30],
-["nervous about","...dan hayajonlangan, asabiylashgan","Нервничающий из-за",30],
-["scared of","...dan qo‘rqadigan","Боящийся",30],
-["sorry about/for","...dan afsuslangan","Сожалеющий о",30],
-["surprised at/by","...dan hayratlangan","Удивлённый чем-либо",30]
+["Cultivated","yetishtirilgan","выращенный",30],
+["Biotechnology","biotexnologiya","биотехнология",30],
+["Occurring","yuzaga keladigan","происходящий, возникающий",30],
+["Purity","poklik","чистота",30],
+["Thrive","rivojlanmoq, gullab-yashnamoq","процветать, успешно развиваться",30],
+["Pruning","butash","обрезка растений",30],
+["Grace","nafosat","изящество, грация",30],
+["Apology","kechirim","извинение",30],
+["Emotional well-being","ruhiy salomatlik","эмоциональное благополучие",30],
+["Attention","e’tibor","внимание",30],
+["Formal","rasmiy","официальный, формальный",30],
+["Suitable","mos","подходящий",30],
+["Wrinkle-resistant","burishmaydigan","устойчивый к сминанию",30],
+["Recommend","tavsiya qilmoq","рекомендовать",30],
+["Tailored","bichilgan, moslashtirilgan","сшитый на заказ, подогнанный",30],
+["Breathable","nafas oladigan mato","дышащий, воздухопроницаемый",30],
+["Crease","bukilmoq, burishmoq","складка, сминаться",30],
+["Durable","mustahkam","прочный, долговечный",30],
+["Dry-clean only","faqat kimyoviy tozalash","только химчистка",30],
+["Fitting room","kiyim sinash xonasi","примерочная",30],
+["happy about/with","...dan xursand, mamnun","довольный чем-либо",30],
+["nervous about","...dan hayajonlangan, asabiylashgan","нервничающий из-за",30],
+["scared of","...dan qo‘rqadigan","боящийся",30],
+["sorry about/for","...dan afsuslangan","сожалеющий о",30],
+["surprised at/by","...dan hayratlangan","удивлённый чем-либо",30]
 ];
 
-/* Bir xil inglizcha yozuvli takrorlarni bitta qoldiramiz. */
+/* Bir xil inglizcha so'zlar faqat bir marta ishlatiladi. */
 const uniqueVocabulary = Array.from(
     new Map(vocabulary.map(item => [item[0].toLowerCase(), item])).values()
 );
 
-const EXAM_SIZE = 20;
-const EXAM_SECONDS = 30 * 60;
 let studentName = "";
-let examQuestions = [];
-let currentIndex = 0;
-let timeLeft = EXAM_SECONDS;
+let questions = [];
+let currentQuestion = 0;
+let timeLeft = 1800;
 let timerInterval = null;
-let examActive = false;
 let answers = [];
+let examActive = false;
 
-const nameInput = document.getElementById("studentName");
-const beginButton = document.getElementById("beginButton");
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+}
 
-nameInput.addEventListener("input", () => {
-    beginButton.disabled = !nameInput.value.trim();
-});
+function continueToExam(){
+    const name = document.getElementById("studentName").value.trim();
+    if(!name){
+        document.getElementById("loginError").textContent = "Ismingizni kiriting.";
+        return;
+    }
+    studentName = name;
+    document.getElementById("loginCard").classList.add("hidden");
+    document.getElementById("beginCard").classList.remove("hidden");
+    document.getElementById("welcome").textContent = "Omad, " + studentName + "!";
+}
 
 function shuffle(array){
     const result = [...array];
@@ -408,206 +392,18 @@ function shuffle(array){
 }
 
 function beginExam(){
-    studentName = nameInput.value.trim();
-    if(!studentName){
-        alert("Iltimos, ismingizni kiriting.");
-        return;
-    }
-
-    examQuestions = shuffle(uniqueVocabulary).slice(0, EXAM_SIZE);
-    currentIndex = 0;
-    timeLeft = EXAM_SECONDS;
-    answers = examQuestions.map(() => ({
-        wordAnswer: "",
-        sentenceAnswer: "",
-        wordCorrect: false,
-        sentenceCorrect: false,
-        grammarMessage: "Tekshirilmagan"
-    }));
-
+    questions = shuffle(uniqueVocabulary).slice(0,20);
+    currentQuestion = 0;
+    timeLeft = 1800;
+    answers = [];
     examActive = true;
-    document.getElementById("welcomeCard").classList.add("hidden");
-    document.getElementById("resultCard").classList.add("hidden");
-    document.getElementById("reviewCard").classList.add("hidden");
+
+    document.getElementById("beginCard").classList.add("hidden");
     document.getElementById("examCard").classList.remove("hidden");
-    document.getElementById("studentLabel").textContent = "Student: " + studentName;
+    document.getElementById("studentLabel").textContent = "O‘quvchi: " + studentName;
 
     loadQuestion();
     updateTimer();
-    startTimer();
-}
-
-function loadQuestion(){
-    if(!examActive) return;
-    const item = examQuestions[currentIndex];
-
-    document.getElementById("progress").textContent =
-        `Question ${currentIndex + 1} / ${EXAM_SIZE}`;
-    document.getElementById("progressFill").style.width =
-        `${(currentIndex / EXAM_SIZE) * 100}%`;
-    document.getElementById("question").textContent = item[1];
-    document.getElementById("questionInfo").textContent =
-        `LESSON ${item[3]} · Question ${currentIndex + 1}`;
-    document.getElementById("wordAnswer").value = answers[currentIndex].wordAnswer;
-    document.getElementById("sentenceAnswer").value = answers[currentIndex].sentenceAnswer;
-    document.getElementById("status").textContent =
-        "Tarjimani va shu so‘z bilan tuzilgan gapni yozing.";
-    document.getElementById("nextButton").textContent =
-        currentIndex === EXAM_SIZE - 1 ? "🏁 FINISH EXAM" : "➡️ NEXT QUESTION";
-}
-
-function saveCurrentAnswer(){
-    answers[currentIndex].wordAnswer =
-        document.getElementById("wordAnswer").value.trim();
-    answers[currentIndex].sentenceAnswer =
-        document.getElementById("sentenceAnswer").value.trim();
-}
-
-function normalize(text){
-    return String(text).toLowerCase().trim()
-        .replace(/[’‘`]/g, "'")
-        .replace(/[.,!?;:()[\]"]/g, "")
-        .replace(/\s+/g, " ");
-}
-
-function checkWordAnswer(userAnswer, correctAnswer){
-    const user = normalize(userAnswer);
-    const correct = normalize(correctAnswer);
-    if(!user || !correct) return false;
-    if(user === correct) return true;
-    return correct.split("/").some(part => user === normalize(part));
-}
-
-function sentenceUsesTarget(sentence, target){
-    const s = normalize(sentence);
-    const parts = normalize(target).split(/[ /]+/).filter(w => w.length > 2);
-    return parts.some(word => {
-        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        return new RegExp("(^|\\s)" + escaped + "($|\\s)").test(s);
-    });
-}
-
-async function checkGrammar(sentence){
-    const form = new URLSearchParams();
-    form.append("text", sentence);
-    form.append("language", "en-US");
-    const response = await fetch("https://api.languagetool.org/v2/check", {
-        method: "POST",
-        headers: {"Content-Type":"application/x-www-form-urlencoded"},
-        body: form.toString()
-    });
-    if(!response.ok) throw new Error("Grammar service is unavailable.");
-    return await response.json();
-}
-
-async function gradeCurrentAnswer(){
-    saveCurrentAnswer();
-    const item = examQuestions[currentIndex];
-    const record = answers[currentIndex];
-
-    record.wordCorrect = checkWordAnswer(record.wordAnswer, item[0]);
-    record.sentenceCorrect = false;
-
-    if(!record.sentenceAnswer){
-        record.grammarMessage = "Gap yozilmagan";
-        return;
-    }
-
-    if(!sentenceUsesTarget(record.sentenceAnswer, item[0])){
-        record.grammarMessage = "Gapda asosiy so‘z yoki ibora ishlatilmagan.";
-        return;
-    }
-
-    try{
-        const grammar = await checkGrammar(record.sentenceAnswer);
-        const matches = grammar.matches.filter(match =>
-            match.rule && match.rule.issueType !== "style"
-        );
-
-        if(matches.length === 0){
-            record.sentenceCorrect = true;
-            record.grammarMessage = "Asosiy grammatika va imlo xatolari topilmadi.";
-        }else{
-            record.grammarMessage = matches.slice(0,3)
-                .map(match => match.message).join(" ");
-        }
-    }catch(error){
-        record.grammarMessage = "Grammatika tekshiruvi ishlamadi; gap uchun ball berilmadi.";
-    }
-}
-
-async function nextQuestion(){
-    if(!examActive) return;
-    const button = document.getElementById("nextButton");
-    button.disabled = true;
-    button.textContent = "⏳ Checking...";
-    await gradeCurrentAnswer();
-
-    if(currentIndex < EXAM_SIZE - 1){
-        currentIndex++;
-        loadQuestion();
-    }else{
-        showResults(false);
-    }
-    button.disabled = false;
-}
-
-async function finishExam(timeExpired){
-    if(!examActive) return;
-    if(!timeExpired) await gradeCurrentAnswer();
-    else saveCurrentAnswer();
-    showResults(timeExpired);
-}
-
-function showResults(timeExpired){
-    if(!examActive) return;
-    examActive = false;
-    clearInterval(timerInterval);
-
-    document.getElementById("examCard").classList.add("hidden");
-    document.getElementById("resultCard").classList.remove("hidden");
-
-    const wordScore = answers.filter(a => a.wordCorrect).length;
-    const sentenceScore = answers.filter(a => a.sentenceCorrect).length;
-    const total = wordScore + sentenceScore;
-    const maxScore = EXAM_SIZE * 2;
-    const percent = Math.round(total / maxScore * 100);
-
-    document.getElementById("resultName").textContent = "Student: " + studentName;
-    document.getElementById("resultScore").textContent = `${total} / ${maxScore}`;
-    document.getElementById("resultPercent").textContent = `${percent}%`;
-
-    let grade = "Keep practising!";
-    if(percent >= 90) grade = "Excellent!";
-    else if(percent >= 75) grade = "Very good!";
-    else if(percent >= 60) grade = "Good effort!";
-
-    document.getElementById("resultGrade").textContent =
-        timeExpired ? `⏰ Time is over. ${grade}` : grade;
-
-    document.getElementById("resultDetails").innerHTML = `
-        <p><b>Student:</b> ${escapeHTML(studentName)}</p>
-        <p><b>Vocabulary:</b> ${wordScore} / ${EXAM_SIZE}</p>
-        <p><b>Sentence:</b> ${sentenceScore} / ${EXAM_SIZE}</p>
-        <p><b>Total score:</b> ${total} / ${maxScore}</p>
-        <p class="small">Gaplar avtomatik tekshiriladi. Natija taxminiy bo‘lishi mumkin.</p>
-    `;
-}
-
-function escapeHTML(text){
-    return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
-
-function updateTimer(){
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    document.getElementById("timer").textContent =
-        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-}
-
-function startTimer(){
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         if(!examActive){
@@ -617,52 +413,183 @@ function startTimer(){
         timeLeft--;
         updateTimer();
         if(timeLeft <= 0){
-            clearInterval(timerInterval);
             finishExam(true);
         }
     },1000);
 }
 
-function startNewExam(){
-    clearInterval(timerInterval);
-    examActive = false;
-    examQuestions = [];
-    answers = [];
-    currentIndex = 0;
-    timeLeft = EXAM_SECONDS;
-    document.getElementById("resultCard").classList.add("hidden");
-    document.getElementById("reviewCard").classList.add("hidden");
-    document.getElementById("examCard").classList.add("hidden");
-    document.getElementById("welcomeCard").classList.remove("hidden");
-    nameInput.value = studentName;
-    beginButton.disabled = !studentName.trim();
+function loadQuestion(){
+    const item = questions[currentQuestion];
+
+    document.getElementById("progressText").textContent =
+        `Savol ${currentQuestion + 1} / ${questions.length}`;
+
+    document.getElementById("progressBar").style.width =
+        ((currentQuestion + 1) / questions.length * 100) + "%";
+
+    document.getElementById("question").textContent =
+        item[1] + " (" + item[2] + ")";
+
+    document.getElementById("translation").textContent =
+        "Inglizcha so‘zni yozing.";
+
+    document.getElementById("lesson").textContent =
+        "Lesson " + item[3];
+
+    document.getElementById("answer").value = "";
+    document.getElementById("message").classList.add("hidden");
+    document.getElementById("answer").disabled = false;
+    document.getElementById("submitButton").disabled = false;
+    document.getElementById("skipButton").disabled = false;
+    document.getElementById("answer").focus();
 }
 
-function reviewWords(){
-    document.getElementById("resultCard").classList.add("hidden");
-    document.getElementById("reviewCard").classList.remove("hidden");
-    const list = document.getElementById("reviewList");
-    list.innerHTML = "";
+function updateTimer(){
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById("timer").textContent =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+}
 
-    examQuestions.forEach((item, index) => {
-        const a = answers[index];
+function normalize(text){
+    return String(text).trim().toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ");
+}
+
+function submitAnswer(){
+    if(!examActive) return;
+
+    const typed = document.getElementById("answer").value.trim();
+    if(!typed){
+        document.getElementById("message").textContent = "Avval javobni yozing yoki savolni o‘tkazib yuboring.";
+        document.getElementById("message").classList.remove("hidden");
+        return;
+    }
+
+    const item = questions[currentQuestion];
+    const correct = normalize(typed) === normalize(item[0]);
+
+    answers[currentQuestion] = {
+        item,
+        typed,
+        correct,
+        skipped:false
+    };
+
+    if(correct){
+        showMessage("✅ To‘g‘ri javob! +2 ball", "correct");
+    }else{
+        showMessage("❌ Noto‘g‘ri. To‘g‘ri javob: " + item[0], "wrong");
+    }
+
+    lockAndContinue();
+}
+
+function skipQuestion(){
+    if(!examActive) return;
+    answers[currentQuestion] = {
+        item:questions[currentQuestion],
+        typed:"",
+        correct:false,
+        skipped:true
+    };
+    showMessage("⏭️ Savol o‘tkazildi. To‘g‘ri javob: " + questions[currentQuestion][0], "wrong");
+    lockAndContinue();
+}
+
+function showMessage(text, className){
+    const box = document.getElementById("message");
+    box.classList.remove("hidden");
+    box.className = "feedback " + className;
+    box.textContent = text;
+}
+
+function lockAndContinue(){
+    document.getElementById("answer").disabled = true;
+    document.getElementById("submitButton").disabled = true;
+    document.getElementById("skipButton").disabled = true;
+
+    setTimeout(() => {
+        if(!examActive) return;
+        if(currentQuestion < questions.length - 1){
+            currentQuestion++;
+            loadQuestion();
+        }else{
+            finishExam(false);
+        }
+    },900);
+}
+
+function finishExam(timeExpired){
+    if(!examActive) return;
+    examActive = false;
+    clearInterval(timerInterval);
+
+    for(let i = 0; i < questions.length; i++){
+        if(!answers[i]){
+            answers[i] = {
+                item:questions[i],
+                typed:"",
+                correct:false,
+                skipped:true
+            };
+        }
+    }
+
+    const correctCount = answers.filter(a => a.correct).length;
+    const score = correctCount * 2;
+    const percentage = Math.round(correctCount / questions.length * 100);
+
+    document.getElementById("examCard").classList.add("hidden");
+    document.getElementById("resultCard").classList.remove("hidden");
+    document.getElementById("resultName").textContent = studentName;
+    document.getElementById("score").textContent = score + " / 40";
+    document.getElementById("percentage").textContent = percentage + "%";
+
+    let summary = "";
+    if(percentage >= 90) summary = "Ajoyib natija! 🌟";
+    else if(percentage >= 75) summary = "Juda yaxshi! Davom et! 👏";
+    else if(percentage >= 50) summary = "Yaxshi boshlanish. Xatolarni qayta o‘rgan. 💪";
+    else summary = "Ko‘proq takrorlash kerak. Taslim bo‘lma! 📚";
+
+    if(timeExpired) summary += " Vaqt tugadi.";
+    document.getElementById("resultSummary").textContent = summary;
+
+    const review = document.getElementById("review");
+    review.innerHTML = "<h2>📝 Javoblar tahlili</h2>";
+
+    answers.forEach((a,index) => {
         const div = document.createElement("div");
-        div.className = "wordcard";
-        div.innerHTML = `
-            <h3>${index + 1}. ${escapeHTML(item[0])}</h3>
-            <p><b>Lesson:</b> ${item[3]}</p>
-            <p><b>Uzbek:</b> ${escapeHTML(item[1])}</p>
-            <p><b>Russian:</b> ${escapeHTML(item[2])}</p>
-            <p><b>Your answer:</b> ${escapeHTML(a.wordAnswer || "No answer")}</p>
-            <p><b>Vocabulary:</b> ${a.wordCorrect ? "✅ Correct" : "❌ Incorrect"}</p>
-            <p><b>Your sentence:</b> ${escapeHTML(a.sentenceAnswer || "No sentence")}</p>
-            <p><b>Feedback:</b> ${escapeHTML(a.grammarMessage)}</p>`;
-        list.appendChild(div);
+        div.className = "review-item";
+
+        const status = a.correct
+            ? '<span class="correct">✅ To‘g‘ri (+2)</span>'
+            : '<span class="wrong">❌ Noto‘g‘ri (0)</span>';
+
+        div.innerHTML =
+            "<b>" + (index+1) + ". " + escapeHTML(a.item[1]) +
+            " (" + escapeHTML(a.item[2]) + ")</b><br>" +
+            "Sening javobing: " + escapeHTML(a.typed || "Javob berilmadi") +
+            "<br>To‘g‘ri javob: <b>" + escapeHTML(a.item[0]) + "</b><br>" +
+            status + " · Lesson " + a.item[3];
+
+        review.appendChild(div);
     });
 }
 
-function toggleTheme(){
-    document.body.classList.toggle("dark");
+function escapeHTML(text){
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function newExam(){
+    clearInterval(timerInterval);
+    examActive = false;
+    document.getElementById("resultCard").classList.add("hidden");
+    document.getElementById("beginCard").classList.remove("hidden");
 }
 </script>
 </body>
